@@ -1,15 +1,36 @@
 import axios from "axios";
 const API = "http://localhost:8000/api/v1";
-export const regUser = async (formdata) => {
+
+interface regData{
+    name:String,
+    email:String,
+    password:String
+}
+export const regUser = async (formdata:regData) => {
     const res = await axios.post(`${API}/user/register`, formdata)
     return res.data;
 }
+interface logInData{
+    email:String,
+    password:String
+}
 
-export const LogUser = async (formdata) => {
+export const LogUser = async (formdata:logInData) => {
     const res = await axios.post(`${API}/user/login`, formdata,{
         withCredentials:true
     })
     return res.data;
+}
+
+interface blogs{
+    _id:String,
+    category:String,
+    title:String,
+    content:String,
+    createdBy:Object,
+    comments:String[],
+    createdAt:String,
+    updatedAt:String
 }
 
 export const getAllBlogs = async()=>{
@@ -26,18 +47,23 @@ export const getSingleBlog = async(id)=>{
     return res.data.curBlog
 }
 
-export const postBlog = async(formdata)=>{
+interface form{
+    category:String,
+    title:String,
+    content:String
+}
+
+export const postBlog = async(formdata:form)=>{
     const res = await axios.post(`${API}/blog/createBlog`,formdata,{
         withCredentials:true
     })
 }
 
-export const getComments = async(id)=>{
+export const getComments = async(id:string)=>{
     const res = await axios.get(`${API}/blog/getCommentsOnBlog/${id}`,{
         withCredentials:true
     })
     // console.log(res.data);
-    
     return res.data.temp;
 }
 
