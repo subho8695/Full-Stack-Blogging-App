@@ -98,7 +98,6 @@ export const delUser = async (req:any, res:Response) => {
     const id = req.id;
     const curUser = await user.findById(id);
     // console.log(curUser);
-
     return res.status(201).json({
       curUser,
       success: true,
